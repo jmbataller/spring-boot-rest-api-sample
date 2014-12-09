@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://company.com/myloyal" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://company.com/myloyal" targetNamespace="http://company.com/myloyal">
+    <wsdl:types>
+        <xs:schema xmlns:ns1="http://company.com/myloyal/domain" xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://company.com/myloyal">
+            <xs:import namespace="http://company.com/myloyal/domain" schemaLocation="domain.xsd"/>
+            <xs:complexType name="error">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="code" type="xs:string"/>
+                    <xs:element minOccurs="0" name="message" type="xs:string"/>
+                    <xs:element minOccurs="0" name="description" type="xs:string"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="loyaltyPointsList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="loyaltyPoints" type="ns1:loyaltyPoints"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="bookingList">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="booking" type="ns1:booking"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:element name="getCustomerProfileData">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="cin" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="getCustomerProfileDataResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="customerProfile" type="ns1:customer"/>
+                        <xs:element minOccurs="0" name="error" type="tns:error"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveCustomerBookings">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="cin" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveCustomerBookingsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="bookingList" type="tns:bookingList"/>
+                        <xs:element minOccurs="0" name="error" type="tns:error"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchCustomerBookings">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="cin" type="xs:string"/>
+                        <xs:element minOccurs="0" name="fromDate" type="xs:string"/>
+                        <xs:element minOccurs="0" name="toDate" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="searchCustomerBookingsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="bookingList" type="tns:bookingList"/>
+                        <xs:element minOccurs="0" name="error" type="tns:error"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveCustomerLoyaltyPoints">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="cin" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="retrieveCustomerLoyaltyPointsResponse">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="0" name="loyaltyPointsList" type="tns:loyaltyPointsList"/>
+                        <xs:element minOccurs="0" name="error" type="tns:error"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:schema>
+    </wsdl:types>
+    <wsdl:message name="retrieveCustomerBookingsResponse">
+        <wsdl:part element="tns:retrieveCustomerBookingsResponse" name="retrieveCustomerBookingsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="getCustomerProfileDataResponse">
+        <wsdl:part element="tns:getCustomerProfileDataResponse" name="getCustomerProfileDataResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="retrieveCustomerLoyaltyPointsResponse">
+        <wsdl:part element="tns:retrieveCustomerLoyaltyPointsResponse" name="retrieveCustomerLoyaltyPointsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:message name="searchCustomerBookingsResponse">
+        <wsdl:part element="tns:searchCustomerBookingsResponse" name="searchCustomerBookingsResponse">
+        </wsdl:part>
+    </wsdl:message>
+    <wsdl:portType name="MyLoyalPort">
+        <wsdl:operation name="retrieveCustomerBookings">
+            <wsdl:output message="tns:retrieveCustomerBookingsResponse" name="retrieveCustomerBookingsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCustomerProfileData">
+            <wsdl:output message="tns:getCustomerProfileDataResponse" name="getCustomerProfileDataResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveCustomerLoyaltyPoints">
+            <wsdl:output message="tns:retrieveCustomerLoyaltyPointsResponse" name="retrieveCustomerLoyaltyPointsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchCustomerBookings">
+            <wsdl:output message="tns:searchCustomerBookingsResponse" name="searchCustomerBookingsResponse">
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="MyLoyalPortSoap11" type="tns:MyLoyalPort">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="retrieveCustomerBookings">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="retrieveCustomerBookingsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getCustomerProfileData">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="getCustomerProfileDataResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="retrieveCustomerLoyaltyPoints">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="retrieveCustomerLoyaltyPointsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="searchCustomerBookings">
+            <soap:operation soapAction=""/>
+            <wsdl:output name="searchCustomerBookingsResponse">
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="MyLoyalPortService">
+        <wsdl:port binding="tns:MyLoyalPortSoap11" name="MyLoyalPortSoap11">
+            <soap:address location="http://localhost:8080/ws"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

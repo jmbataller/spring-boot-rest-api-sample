@@ -1,0 +1,152 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://company.com/myloyal/domain" elementFormDefault="qualified" targetNamespace="http://company.com/myloyal/domain">
+    <xs:simpleType name="title">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Miss"/>
+            <xs:enumeration value="Mr"/>
+            <xs:enumeration value="Mrs"/>
+            <xs:enumeration value="Ms"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="telephoneType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="HOME"/>
+            <xs:enumeration value="WORK"/>
+            <xs:enumeration value="MOBILE"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="direction">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INBOUND"/>
+            <xs:enumeration value="OUTBOUND"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="passengerType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="INFANT"/>
+            <xs:enumeration value="CHILDREN"/>
+            <xs:enumeration value="ADULT"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="telephone">
+        <xs:sequence>
+            <xs:element type="tns:telephoneType" name="telephoneType" minOccurs="0"/>
+            <xs:element type="xs:string" name="countryCode" minOccurs="0"/>
+            <xs:element type="xs:string" name="number" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="address">
+        <xs:sequence>
+            <xs:element type="xs:string" name="addressLine1" minOccurs="0"/>
+            <xs:element type="xs:string" name="addressLine2" minOccurs="0"/>
+            <xs:element type="xs:string" name="postCode" minOccurs="0"/>
+            <xs:element type="xs:string" name="city" minOccurs="0"/>
+            <xs:element type="xs:string" name="countryCode" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="loyaltyPoints">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+            <xs:element type="xs:string" name="bookingRef" minOccurs="0"/>
+            <xs:element type="xs:string" name="name" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:int" use="required" name="numPoints"/>
+    </xs:complexType>
+    <xs:complexType name="station">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+            <xs:element type="xs:string" name="name" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="booking">
+        <xs:sequence>
+            <xs:element type="xs:string" name="bookingRef" minOccurs="0"/>
+            <xs:element type="xs:string" name="customerId" minOccurs="0"/>
+            <xs:element name="journey" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="id" minOccurs="0"/>
+                        <xs:element type="xs:string" name="name" minOccurs="0"/>
+                        <xs:element type="tns:station" name="origin" minOccurs="0"/>
+                        <xs:element type="tns:station" name="destination" minOccurs="0"/>
+                        <xs:element name="leg" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element type="xs:string" name="id" minOccurs="0"/>
+                                    <xs:element type="tns:station" name="station" minOccurs="0"/>
+                                </xs:sequence>
+                                <xs:attribute type="xs:int" use="required" name="order"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element type="tns:direction" name="direction" minOccurs="0"/>
+                        <xs:element name="carrier" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element type="xs:string" name="id" minOccurs="0"/>
+                                    <xs:element type="xs:string" name="name" minOccurs="0"/>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element type="xs:string" name="platform" minOccurs="0"/>
+                        <xs:element type="xs:string" name="seat" minOccurs="0" maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute type="xs:string" name="departureTime"/>
+                    <xs:attribute type="xs:string" name="arrivalTime"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="passenger" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="id" minOccurs="0"/>
+                        <xs:element type="tns:title" name="title" minOccurs="0"/>
+                        <xs:element type="xs:string" name="name" minOccurs="0"/>
+                        <xs:element type="xs:string" name="surname" minOccurs="0"/>
+                        <xs:element type="tns:passengerType" name="type" minOccurs="0"/>
+                    </xs:sequence>
+                    <xs:attribute type="xs:string" name="dateOfBirth"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="extra" minOccurs="0" maxOccurs="unbounded">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element type="xs:string" name="id" minOccurs="0"/>
+                        <xs:element type="xs:string" name="name" minOccurs="0"/>
+                        <xs:element type="xs:string" name="description" minOccurs="0"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="costSummary" minOccurs="0">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="costingItem" minOccurs="0" maxOccurs="unbounded">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element type="xs:string" name="id" minOccurs="0"/>
+                                    <xs:element type="xs:string" name="name" minOccurs="0"/>
+                                    <xs:element type="xs:string" name="description" minOccurs="0"/>
+                                </xs:sequence>
+                                <xs:attribute type="xs:int" use="required" name="quantity"/>
+                                <xs:attribute type="xs:decimal" name="unitAmount"/>
+                                <xs:attribute type="xs:decimal" name="totalAmount"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute type="xs:decimal" name="grossAmount"/>
+                    <xs:attribute type="xs:decimal" name="discountAmount"/>
+                    <xs:attribute type="xs:decimal" name="taxesAmount"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="tns:loyaltyPoints" name="loyaltyPoints" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="customer">
+        <xs:sequence>
+            <xs:element type="xs:string" name="id" minOccurs="0"/>
+            <xs:element type="tns:title" name="title" minOccurs="0"/>
+            <xs:element type="xs:string" name="name" minOccurs="0"/>
+            <xs:element type="xs:string" name="surname" minOccurs="0"/>
+            <xs:element type="tns:telephone" name="telephoneContactNum" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element type="tns:address" name="address" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:string" name="dateOfBirth"/>
+    </xs:complexType>
+</xs:schema>

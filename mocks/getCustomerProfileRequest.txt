@@ -1,0 +1,1 @@
+curl --header "API_KEY: test" http://localhost:9000/customer/1/profile
