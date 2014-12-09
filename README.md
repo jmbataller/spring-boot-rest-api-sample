@@ -22,7 +22,10 @@ Instructions to build the project:
 Samples of requests to the API:
 
 curl --header "API_KEY: test" http://localhost:9000/customer/1
+
 curl --header "API_KEY: test" http://localhost:9000/customer/1/bookings
+
 curl --header "API_KEY: test" http://localhost:9000/customer/1/bookings?fromDate=2014-12-01&toDate=2015-02-01
+
 curl --header "API_KEY: test" http://localhost:9000/customer/1/points
 
