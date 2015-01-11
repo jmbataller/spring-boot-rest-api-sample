@@ -2,4 +2,4 @@ language: java
 jdk:
         - openjdk6
 
-commit_container: jmbataller/spring-boot-rest-api-sample
+build_image: jmbataller/spring-boot-rest-api-sample
