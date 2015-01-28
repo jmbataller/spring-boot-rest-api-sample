@@ -1,4 +1,3 @@
-
 Prerequisites:
 
 - jdk 6 or later
